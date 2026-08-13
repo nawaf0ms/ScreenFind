@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <UseWPF>true</UseWPF>
+    <!-- WinForms is pulled in for one thing only: NotifyIcon (there is no WPF tray API). -->
+    <UseWindowsForms>true</UseWindowsForms>
+    <RootNamespace>ScreenFind.App</RootNamespace>
+    <AssemblyName>ScreenFind</AssemblyName>
+    <ApplicationManifest>..\build\app.manifest</ApplicationManifest>
+    <ApplicationIcon>..\build\ScreenFind.ico</ApplicationIcon>
+    <!-- WFAC010 tells WinForms apps to move DPI settings out of the manifest. This is a WPF app
+         that only borrows NotifyIcon; PerMonitorV2 must stay in the manifest (spec §6). -->
+    <NoWarn>$(NoWarn);WFAC010</NoWarn>
+
+    <!-- Spec §3: single-file, self-contained packaging. -->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ScreenFind.Core\ScreenFind.Core.csproj" />
+  </ItemGroup>
+
+</Project>

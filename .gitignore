@@ -1,0 +1,29 @@
+# build output
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+artifacts/
+
+# packaged installers (59 MB — ship them as GitHub Release assets, not in the tree)
+dist/
+
+# generated samples: `dotnet run --project ScreenFind.Feasibility -- synth` recreates them
+samples/
+
+# measurement reports written by the feasibility tool — machine specific (local paths,
+# results that depend on the installed language packs), never part of the repo
+docs/
+
+# IDE / tooling
+.vs/
+.vscode/
+.idea/
+*.user
+*.suo
+*.userprefs
+
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store

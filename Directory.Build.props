@@ -1,0 +1,25 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>12</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <InvariantGlobalization>false</InvariantGlobalization>
+    <DotNetCliToolTelemetryOptOut>true</DotNetCliToolTelemetryOptOut>
+    <NeutralLanguage>en</NeutralLanguage>
+  </PropertyGroup>
+
+  <!-- Ownership: stamped into every assembly's file properties and into the installer. -->
+  <PropertyGroup>
+    <Product>ScreenFind</Product>
+    <Authors>nawaf0ms</Authors>
+    <Company>nawaf0ms</Company>
+    <Copyright>Copyright © 2026 nawaf0ms</Copyright>
+    <RepositoryUrl>https://github.com/nawaf0ms</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/nawaf0ms</PackageProjectUrl>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <Version>1.0.0</Version>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </PropertyGroup>
+</Project>

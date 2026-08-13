@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenFind.Core", "ScreenFind.Core\ScreenFind.Core.csproj", "{95545B17-1CE0-415D-9325-D8980CD09212}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenFind.Tests", "ScreenFind.Tests\ScreenFind.Tests.csproj", "{5F2D7AB6-6BA3-427F-B072-5AC4942B1B83}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenFind.Feasibility", "ScreenFind.Feasibility\ScreenFind.Feasibility.csproj", "{B3424AAE-859A-4DBF-AAE7-FA0F6D2EA833}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenFind.Cli", "ScreenFind.Cli\ScreenFind.Cli.csproj", "{77D0DFB2-E338-4929-999A-898E0C85DDC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScreenFind.App", "ScreenFind.App\ScreenFind.App.csproj", "{B0E17863-7CF9-4F43-A615-1F387EF3328F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{95545B17-1CE0-415D-9325-D8980CD09212}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{95545B17-1CE0-415D-9325-D8980CD09212}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{95545B17-1CE0-415D-9325-D8980CD09212}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{95545B17-1CE0-415D-9325-D8980CD09212}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F2D7AB6-6BA3-427F-B072-5AC4942B1B83}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5F2D7AB6-6BA3-427F-B072-5AC4942B1B83}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5F2D7AB6-6BA3-427F-B072-5AC4942B1B83}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5F2D7AB6-6BA3-427F-B072-5AC4942B1B83}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3424AAE-859A-4DBF-AAE7-FA0F6D2EA833}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3424AAE-859A-4DBF-AAE7-FA0F6D2EA833}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3424AAE-859A-4DBF-AAE7-FA0F6D2EA833}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3424AAE-859A-4DBF-AAE7-FA0F6D2EA833}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77D0DFB2-E338-4929-999A-898E0C85DDC6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77D0DFB2-E338-4929-999A-898E0C85DDC6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77D0DFB2-E338-4929-999A-898E0C85DDC6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77D0DFB2-E338-4929-999A-898E0C85DDC6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0E17863-7CF9-4F43-A615-1F387EF3328F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0E17863-7CF9-4F43-A615-1F387EF3328F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0E17863-7CF9-4F43-A615-1F387EF3328F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0E17863-7CF9-4F43-A615-1F387EF3328F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

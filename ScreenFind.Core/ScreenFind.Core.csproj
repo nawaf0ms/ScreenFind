@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows10.0.19041.0</TargetFramework>
+    <SupportedOSPlatformVersion>10.0.19041.0</SupportedOSPlatformVersion>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <RootNamespace>ScreenFind.Core</RootNamespace>
+    <!-- ScreenFind.Core must never reference WPF. The WindowsDesktop framework
+         reference is here only for System.Windows.Automation (UI Automation client);
+         UseWPF/UseWindowsForms stay off so no UI types leak into the core. -->
+    <UseWPF>false</UseWPF>
+    <UseWindowsForms>false</UseWindowsForms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <FrameworkReference Include="Microsoft.WindowsDesktop.App" />
+  </ItemGroup>
+
+</Project>

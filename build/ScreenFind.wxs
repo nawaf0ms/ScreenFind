@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Per-user MSI: installs into %LOCALAPPDATA%\Programs\ScreenFind, needs no administrator rights,
+  and touches nothing outside the current user's profile. The payload is a single self-contained
+  executable, so there is exactly one file to install.
+
+  Build:  pwsh build\build-installer.ps1
+-->
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs"
+     xmlns:ui="http://wixtoolset.org/schemas/v4/wxs/ui">
+
+  <Package Name="ScreenFind"
+           Manufacturer="nawaf0ms"
+           Version="$(var.Version)"
+           UpgradeCode="0B58BE19-EDFF-4FB6-B653-4143A82F3085"
+           Scope="perUser"
+           Compressed="yes"
+           InstallerVersion="500">
+
+    <!-- Installer metadata stays ASCII: an MSI string table is code-page bound, and 1252 is the
+         one every Windows Installer handles without surprises. The app itself is Arabic. -->
+    <SummaryInformation Description="ScreenFind - search text shown on screen" />
+
+    <MajorUpgrade DowngradeErrorMessage="A newer version of ScreenFind is already installed." />
+    <MediaTemplate EmbedCab="yes" />
+
+    <Icon Id="ScreenFindIcon" SourceFile="$(var.IconFile)" />
+    <Property Id="ARPPRODUCTICON" Value="ScreenFindIcon" />
+    <Property Id="ARPNOREPAIR" Value="1" />
+    <!-- Shown in "Installed apps". -->
+    <Property Id="ARPCONTACT" Value="nawaf0ms" />
+    <Property Id="ARPURLINFOABOUT" Value="https://github.com/nawaf0ms" />
+
+    <StandardDirectory Id="LocalAppDataFolder">
+      <Directory Id="ProgramsFolder" Name="Programs">
+        <Directory Id="INSTALLFOLDER" Name="ScreenFind" />
+      </Directory>
+    </StandardDirectory>
+
+    <StandardDirectory Id="ProgramMenuFolder">
+      <Directory Id="ShortcutFolder" Name="ScreenFind" />
+    </StandardDirectory>
+
+    <Feature Id="Main" Title="ScreenFind" Level="1">
+      <ComponentGroupRef Id="AppComponents" />
+    </Feature>
+
+    <!-- Interface language, chosen in the installer's second dialog. It only seeds the first run;
+         the app's own settings screen owns the choice from then on. -->
+    <Property Id="UILANG" Value="ar" Secure="yes" />
+
+    <ui:WixUI Id="WixUI_InstallDir" InstallDirectory="INSTALLFOLDER" />
+
+    <UI>
+      <Dialog Id="LanguageDlg" Width="370" Height="270" Title="!(loc.InstallDirDlg_Title)">
+        <Control Id="BannerBitmap" Type="Bitmap" X="0" Y="0" Width="370" Height="44"
+                 TabSkip="no" Text="!(loc.InstallDirDlgBannerBitmap)" />
+        <Control Id="BannerLine" Type="Line" X="0" Y="44" Width="370" Height="0" />
+        <Control Id="BottomLine" Type="Line" X="0" Y="234" Width="370" Height="0" />
+
+        <Control Id="Title" Type="Text" X="15" Y="6" Width="200" Height="15" Transparent="yes"
+                 NoPrefix="yes" Text="{\WixUI_Font_Title}Interface language" />
+        <Control Id="Description" Type="Text" X="25" Y="23" Width="280" Height="15" Transparent="yes"
+                 NoPrefix="yes" Text="Choose the language ScreenFind starts in" />
+
+        <Control Id="LanguageGroup" Type="RadioButtonGroup" Property="UILANG"
+                 X="30" Y="70" Width="300" Height="60">
+          <RadioButtonGroup Property="UILANG">
+            <RadioButton Value="ar" X="0" Y="0" Width="290" Height="18" Text="Arabic" />
+            <RadioButton Value="en" X="0" Y="24" Width="290" Height="18" Text="English" />
+          </RadioButtonGroup>
+        </Control>
+
+        <Control Id="Note" Type="Text" X="30" Y="140" Width="310" Height="30" Transparent="yes"
+                 Text="You can change this at any time from the app's Settings screen." />
+
+        <Control Id="Back" Type="PushButton" X="180" Y="243" Width="56" Height="17"
+                 Text="!(loc.WixUIBack)" />
+        <Control Id="Next" Type="PushButton" X="236" Y="243" Width="56" Height="17" Default="yes"
+                 Text="!(loc.WixUINext)" />
+        <Control Id="Cancel" Type="PushButton" X="304" Y="243" Width="56" Height="17" Cancel="yes"
+                 Text="!(loc.WixUICancel)">
+          <Publish Event="SpawnDialog" Value="CancelDlg" />
+        </Control>
+      </Dialog>
+
+      <!-- Splice the dialog between Welcome and InstallDir. -->
+      <Publish Dialog="WelcomeDlg" Control="Next" Event="NewDialog" Value="LanguageDlg" Order="10" />
+      <Publish Dialog="LanguageDlg" Control="Back" Event="NewDialog" Value="WelcomeDlg" Order="10" />
+      <Publish Dialog="LanguageDlg" Control="Next" Event="NewDialog" Value="InstallDirDlg" Order="10" />
+      <Publish Dialog="InstallDirDlg" Control="Back" Event="NewDialog" Value="LanguageDlg" Order="10" />
+    </UI>
+
+    <!-- Launch straight after install: the app is windowless, so a silent finish would look
+         like nothing happened. -->
+    <Property Id="WixShellExecTarget" Value="[#ScreenFindExe]" />
+    <CustomAction Id="LaunchApp" DllEntry="WixShellExec" Impersonate="yes"
+                  BinaryRef="Wix4UtilCA_X64" Return="ignore" />
+    <InstallExecuteSequence>
+      <Custom Action="LaunchApp" After="InstallFinalize" Condition="NOT Installed" />
+    </InstallExecuteSequence>
+  </Package>
+
+  <Fragment>
+    <ComponentGroup Id="AppComponents">
+
+      <Component Id="MainExecutable" Directory="INSTALLFOLDER"
+                 Guid="C22DD246-C51C-454D-996F-0C7FDBB82CEA">
+        <File Id="ScreenFindExe" Source="$(var.PublishDir)\ScreenFind.exe" KeyPath="yes" />
+      </Component>
+
+      <!-- Seeds the app's first run with the language picked in the installer. -->
+      <Component Id="LanguageChoice" Directory="INSTALLFOLDER"
+                 Guid="7A6C1E44-2F5B-4F0E-9C7A-3D2E5B8A11C6">
+        <RegistryValue Root="HKCU" Key="Software\ScreenFind" Name="Language"
+                       Type="string" Value="[UILANG]" KeyPath="yes" />
+      </Component>
+
+      <Component Id="StartMenuShortcut" Directory="ShortcutFolder"
+                 Guid="05D97FCC-16C6-46C1-9F24-FE19E594F449">
+        <Shortcut Id="ScreenFindShortcut"
+                  Name="ScreenFind"
+                  Description="Search text shown on screen (Ctrl+Shift+F)"
+                  Target="[#ScreenFindExe]"
+                  WorkingDirectory="INSTALLFOLDER"
+                  Icon="ScreenFindIcon" />
+        <RemoveFolder Id="RemoveShortcutFolder" Directory="ShortcutFolder" On="uninstall" />
+        <!-- Per-user components must key off HKCU. -->
+        <RegistryValue Root="HKCU" Key="Software\ScreenFind" Name="StartMenuShortcut"
+                       Type="integer" Value="1" KeyPath="yes" />
+      </Component>
+
+    </ComponentGroup>
+  </Fragment>
+</Wix>
