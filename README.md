@@ -33,6 +33,12 @@ dotnet run --project ScreenFind.Feasibility -- langs
 
 ## التثبيت
 
+**نسخة جاهزة:** نزّل `ScreenFind-1.0.0.msi` من
+[صفحة الإصدارات](https://github.com/nawaf0ms/ScreenFind/releases/latest) وشغّله — بلا صلاحيات
+مدير وبلا حاجة إلى تثبيت .NET.
+
+### البناء من المصدر
+
 ```bash
 powershell -ExecutionPolicy Bypass -File build\build-installer.ps1
 ```
