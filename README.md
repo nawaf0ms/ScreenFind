@@ -226,5 +226,3 @@ dotnet run --project ScreenFind.Feasibility -- dump <image.png> ar x2-bicubic
 
 **ScreenFind** — تطوير [nawaf0ms](https://github.com/nawaf0ms) · © 2026 · رخصة [MIT](LICENSE).
 
-اسم المالك مثبّت في خصائص كل ملف تنفيذي (Company / Product / Copyright)، وفي «التطبيقات
-المثبّتة» في ويندوز، وفي شاشة الإعدادات، وفي مخرجات أدوات الكونسول.
